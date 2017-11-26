@@ -59,6 +59,7 @@ class Planet:
         self.v += acs * Planet.stepT
         self.r += self.v * Planet.stepT
         self.canvas.move(self.oval, self.r[0] - tempr[0], self.r[1] - tempr[1])
+        self.canvas.create_line(tempr[0], tempr[1], self.r[0], self.r[1], fill=self.color)
         if self.r[0] < -20 or self.r[0] > 2000 or self.r[1] < -20 or self.r[0] > 2000:
             Planet.list_of_objects.remove(self)
             del self.oval
