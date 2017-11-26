@@ -9,6 +9,9 @@ class GravityWindow:
 
         self.massLabel = Label(text='Current Mass')
         self.massLabel.grid(row=0, column=3, stick='E')
+        self.clearButton = Button(text='Clear All')
+        self.clearButton.grid(row=0, column=5)
+        self.clearButton.bind('<Button-1>', self.clear_button_click)
         self.massField = Entry(master)
         self.massField.insert(END, '3')
         self.massField.grid(row=0, column=4, stick='W')
@@ -17,6 +20,11 @@ class GravityWindow:
         self.canvas.grid(row=1, column=0, columnspan=8)
         self.canvas.focus_set()
         self.canvas.bind('<Button-1>', self.mouse1_click)
+        
+    def clear_button_click(self, event):
+        self.canvas.delete('all')
+        for i, obj in enumerate(Planet.list_of_objects):
+            obj.r = array([-200. - 10 * i, -200.])
             
     def mouse1_click(self, event):
         Planet(self.canvas, event.x, event.y, float(self.massField.get()))
