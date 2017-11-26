@@ -4,6 +4,7 @@ from numpy import *
 
 class GravityWindow:
     def __init__(self, master, width=800, height=800):
+        self.first_click = 0, 0
         self.master = master
         master.title('Gravity')
 
@@ -20,6 +21,7 @@ class GravityWindow:
         self.canvas.grid(row=1, column=0, columnspan=8)
         self.canvas.focus_set()
         self.canvas.bind('<Button-1>', self.mouse1_click)
+        self.canvas.bind('<ButtonRelease-1>', self.mouse1_release)
         
     def clear_button_click(self, event):
         self.canvas.delete('all')
@@ -27,7 +29,12 @@ class GravityWindow:
             obj.r = array([-200. - 10 * i, -200.])
             
     def mouse1_click(self, event):
-        Planet(self.canvas, event.x, event.y, float(self.massField.get()))
+        self.first_click = event.x, event.y
+        
+    def mouse1_release(self, event):
+        vx = (event.x - self.first_click[0]) / 1000
+        vy = (event.y - self.first_click[1]) / 1000
+        Planet(self.canvas, self.first_click[0], self.first_click[1], vx, vy, float(self.massField.get()))
 
 
 class Planet:
@@ -36,10 +43,10 @@ class Planet:
     stepT = 10.
     afterT = 100
     
-    def __init__(self, c, x, y, mass):
+    def __init__(self, c, x, y, vx, vy,  mass):
         self.mass = mass
         self.r = array([x, y], dtype=float)
-        self.v = array([0., 0.])
+        self.v = array([vx, vy], dtype=float)
         self.color = self.random_color()
         self.canvas = c
         r = max(2, min(10, self.mass))
