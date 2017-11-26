@@ -41,13 +41,7 @@ class Oval:
         
     @staticmethod
     def random_color():
-        return ('#' + str(hex(random.randint(0, 15)))[2:].upper()
-                    + str(hex(random.randint(0, 15)))[2:].upper()
-                    + str(hex(random.randint(0, 15)))[2:].upper()
-                    + str(hex(random.randint(0, 15)))[2:].upper()
-                    + str(hex(random.randint(0, 15)))[2:].upper()
-                    + str(hex(random.randint(0, 15)))[2:].upper())
-        
+        return '#' + ''.join([str(hex(random.randint(0, 15)))[2:].upper() for i in range(6)])
 
 
 if __name__ == '__main__':
