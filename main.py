@@ -16,20 +16,26 @@ class GravityWindow:
         self.canvas = Canvas(root, width=width, height=height, bg="#000000")
         self.canvas.grid(row=0, column=0, columnspan=8)
         self.canvas.focus_set()
-        self.initialize_objects()
-        
-    def initialize_objects(self):
-        for i in range(100):
-            Oval(self.canvas)
+        self.canvas.bind('<Button-1>', self.mouse1_click)
+            
+    def mouse1_click(self, event):
+        Oval(self.canvas, event.x, event.y, float(self.massField.get()))
 
 
 class Oval:
     list_of_objects = []
     
-    def __init__(self, c):
+    def __init__(self, c, x, y, mass):
+        self.mass = mass
+        self.x = x
+        self.y = y
+        self.vx = 0
+        self.vy = 0
         self.color = self.random_color()
         self.canvas = c
-        self.oval = self.canvas.create_oval(395, 395, 405, 405, fill=self.color, outline=self.color)
+        self.oval = self.canvas.create_oval(self.x - self.mass, self.y - self.mass,
+                                            self.x + self.mass, self.y + self.mass,
+                                            fill=self.color, outline=self.color)
         Oval.list_of_objects.append(self)
         self.infinite_movement()
         
