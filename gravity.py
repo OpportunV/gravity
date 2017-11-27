@@ -90,7 +90,7 @@ class Planet:
         
     @staticmethod
     def random_color():
-        return '#{}'.format(''.join([str(hex(random.randint(2, 15)))[2:].upper() for i in range(6)]))
+        return '#{}'.format(''.join([str(hex(random.randint(2, 16)))[2:].upper() for i in range(6)]))
 
 
 if __name__ == '__main__':
