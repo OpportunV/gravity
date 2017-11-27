@@ -16,7 +16,10 @@ class GravityWindow:
         self.massField = Entry(master)
         self.massField.insert(END, '3')
         self.massField.grid(row=0, column=4, stick='W')
-        
+        self.initiateButton1 = Button(text='draw me 8!')
+        self.initiateButton1.grid(row=0, column=6)
+        self.initiateButton1.bind('<Button-1>', self.initiate_button1_click)
+
         self.canvas = Canvas(root, width=width, height=height, bg="#000000")
         self.canvas.grid(row=1, column=0, columnspan=8)
         self.canvas.focus_set()
@@ -24,6 +27,7 @@ class GravityWindow:
         self.canvas.bind('<ButtonRelease-1>', self.mouse1_release)
         
     def clear_button_click(self, event):
+        Planet.afterT = 100
         self.canvas.delete('all')
         for i, obj in enumerate(Planet.list_of_objects):
             obj.r = array([-200. - 10 * i, -200.])
@@ -35,7 +39,16 @@ class GravityWindow:
         vx = (event.x - self.first_click[0]) / 1000
         vy = (event.y - self.first_click[1]) / 1000
         Planet(self.canvas, self.first_click[0], self.first_click[1], vx, vy, float(self.massField.get()))
-
+    
+    def initiate_button1_click(self, event):
+        self.clear_button_click(event)
+        Planet.afterT = 10
+        Planet(self.canvas, -1.43250000e+02 + 400, 0 + 400,
+               -1.70327750e-02, -2.61404295e-02, 0.3333333)
+        Planet(self.canvas, 1.43250000e+02 + 400, 0 + 400,
+               -1.70327750e-02, -2.61404295e-02, 0.3333333)
+        Planet(self.canvas, 0 + 400, 0 + 400,
+               3.40655500e-02, 5.22808591e-02, 0.333333)
 
 class Planet:
     list_of_objects = []
