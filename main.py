@@ -62,7 +62,7 @@ class Planet:
         self.v = array([vx, vy], dtype=float)
         self.color = self.random_color()
         self.canvas = c
-        r = max(2, min(10, self.mass))
+        r = max(3, min(10, self.mass))
         self.oval = self.canvas.create_oval(self.r[0] - r, self.r[1] - r,
                                             self.r[0] + r, self.r[1] + r,
                                             fill=self.color, outline=self.color)
@@ -86,6 +86,7 @@ class Planet:
             del self
             return
         self.canvas.after(Planet.afterT, self.infinite_movement)
+        return
         
     @staticmethod
     def random_color():
