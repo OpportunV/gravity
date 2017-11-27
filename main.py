@@ -10,13 +10,13 @@ class GravityWindow:
 
         self.massLabel = Label(text='Current Mass')
         self.massLabel.grid(row=0, column=3, stick='E')
-        self.clearButton = Button(text='Clear All')
-        self.clearButton.grid(row=0, column=5)
-        self.clearButton.bind('<Button-1>', self.clear_button_click)
         self.massField = Entry(master)
         self.massField.insert(END, '3')
         self.massField.grid(row=0, column=4, stick='W')
-        self.initiateButton1 = Button(text='draw me 8!')
+        self.clearAllButton = Button(text='Clear All')
+        self.clearAllButton.grid(row=0, column=5)
+        self.clearAllButton.bind('<Button-1>', self.clear_button_click)
+        self.initiateButton1 = Button(text='Draw me 8!')
         self.initiateButton1.grid(row=0, column=6)
         self.initiateButton1.bind('<Button-1>', self.initiate_button1_click)
 
@@ -96,5 +96,5 @@ class Planet:
 if __name__ == '__main__':
     WIDTH, HEIGHT = 1200, 800
     root = Tk()
-    GravityWindow(root, WIDTH, HEIGHT)
+    window = GravityWindow(root, WIDTH, HEIGHT)
     root.mainloop()
