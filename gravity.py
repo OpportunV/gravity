@@ -20,7 +20,7 @@ class GravityWindow:
         self.initiateButton1.grid(row=0, column=6)
         self.initiateButton1.bind('<Button-1>', self.initiate_button1_click)
 
-        self.canvas = Canvas(root, width=width, height=height, bg="#000000")
+        self.canvas = Canvas(master, width=width, height=height, bg="#000000")
         self.canvas.grid(row=1, column=0, columnspan=8)
         self.canvas.focus_set()
         self.canvas.bind('<Button-1>', self.mouse1_click)
