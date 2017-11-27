@@ -50,9 +50,9 @@ class GravityWindow:
         Planet(self.canvas, 0 + 400, 0 + 400,
                3.40655500e-02, 5.22808591e-02, 0.333333)
 
+
 class Planet:
     list_of_objects = []
-    G = 6.67 * 10 ** -11
     stepT = 10.
     afterT = 100
     
