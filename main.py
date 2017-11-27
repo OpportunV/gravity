@@ -42,7 +42,7 @@ class GravityWindow:
     
     def initiate_button1_click(self, event):
         self.clear_button_click(event)
-        Planet.afterT = 10
+        Planet.afterT = 50
         Planet(self.canvas, -1.43250000e+02 + 400, 0 + 400,
                -1.70327750e-02, -2.61404295e-02, 0.3333333)
         Planet(self.canvas, 1.43250000e+02 + 400, 0 + 400,
