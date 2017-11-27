@@ -56,7 +56,7 @@ class Planet:
     stepT = 10.
     afterT = 100
     
-    def __init__(self, c, x, y, vx, vy,  mass):
+    def __init__(self, c, x, y, vx, vy, mass):
         self.mass = mass
         self.r = array([x, y], dtype=float)
         self.v = array([vx, vy], dtype=float)
