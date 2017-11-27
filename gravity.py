@@ -38,7 +38,7 @@ class GravityWindow:
     def mouse1_release(self, event):
         vx = (event.x - self.first_click[0]) / 1000
         vy = (event.y - self.first_click[1]) / 1000
-        Planet(self.canvas, self.first_click[0], self.first_click[1], vx, vy, float(self.massField.get()))
+        Planet(self.canvas, self.first_click[0], self.first_click[1], vx, vy, abs(float(self.massField.get())))
     
     def initiate_button1_click(self, event):
         self.clear_button_click(event)
