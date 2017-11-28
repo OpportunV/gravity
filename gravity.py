@@ -4,7 +4,7 @@ from numpy import *
 
 class GravityWindow:
     def __init__(self, master, width=800, height=800):
-        self.first_click = 0, 0
+        self.firstClick = 0, 0
         self.master = master
         master.title('Gravity')
 
@@ -29,16 +29,16 @@ class GravityWindow:
     def clear_button_click(self, event):
         Planet.afterT = 100
         self.canvas.delete('all')
-        for i, obj in enumerate(Planet.list_of_objects):
+        for i, obj in enumerate(Planet.listOfObjects):
             obj.r = array([-200. - 10 * i, -200.])
             
     def mouse1_click(self, event):
-        self.first_click = event.x, event.y
+        self.firstClick = event.x, event.y
         
     def mouse1_release(self, event):
-        vx = (event.x - self.first_click[0]) / 1000
-        vy = (event.y - self.first_click[1]) / 1000
-        Planet(self.canvas, self.first_click[0], self.first_click[1], vx, vy, abs(float(self.massField.get())))
+        vx = (event.x - self.firstClick[0]) / 1000
+        vy = (event.y - self.firstClick[1]) / 1000
+        Planet(self.canvas, self.firstClick[0], self.firstClick[1], vx, vy, abs(float(self.massField.get())))
     
     def initiate_button1_click(self, event):
         self.clear_button_click(event)
@@ -52,7 +52,7 @@ class GravityWindow:
 
 
 class Planet:
-    list_of_objects = []
+    listOfObjects = []
     stepT = 10.
     afterT = 100
     
@@ -66,13 +66,13 @@ class Planet:
         self.oval = self.canvas.create_oval(self.r[0] - r, self.r[1] - r,
                                             self.r[0] + r, self.r[1] + r,
                                             fill=self.color, outline=self.color)
-        Planet.list_of_objects.append(self)
+        Planet.listOfObjects.append(self)
         self.infinite_movement()
         
     def infinite_movement(self):
         acs = array([0., 0.])
         tempr = self.r.copy()
-        for obj in Planet.list_of_objects:
+        for obj in Planet.listOfObjects:
             if obj == self:
                 continue
             acs += obj.mass * (obj.r - self.r) / linalg.norm(obj.r - self.r) ** 3
@@ -81,7 +81,7 @@ class Planet:
         self.canvas.move(self.oval, self.r[0] - tempr[0], self.r[1] - tempr[1])
         self.canvas.create_line(tempr[0], tempr[1], self.r[0], self.r[1], fill=self.color)
         if self.r[0] < -20 or self.r[0] > 2000 or self.r[1] < -20 or self.r[0] > 2000:
-            Planet.list_of_objects.remove(self)
+            Planet.listOfObjects.remove(self)
             del self.oval
             del self
             return
