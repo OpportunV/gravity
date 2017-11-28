@@ -7,6 +7,7 @@ class GravityWindow:
         self.firstClick = 0, 0
         self.master = master
         master.title('Gravity')
+        master.resizable(width=False, height=False)
 
         self.massLabel = Label(text='Current Mass')
         self.massLabel.grid(row=0, column=3, stick='E')
@@ -66,6 +67,7 @@ class Planet:
         self.oval = self.canvas.create_oval(self.r[0] - r, self.r[1] - r,
                                             self.r[0] + r, self.r[1] + r,
                                             fill=self.color, outline=self.color)
+        self.canvas.tag_raise(self.oval)
         Planet.listOfObjects.append(self)
         self.infinite_movement()
         
@@ -79,14 +81,14 @@ class Planet:
         self.v += acs * Planet.stepT
         self.r += self.v * Planet.stepT
         self.canvas.move(self.oval, self.r[0] - tempr[0], self.r[1] - tempr[1])
-        self.canvas.create_line(tempr[0], tempr[1], self.r[0], self.r[1], fill=self.color)
+        line = self.canvas.create_line(tempr[0], tempr[1], self.r[0], self.r[1], fill=self.color)
+        self.canvas.tag_lower(line)
         if self.r[0] < -20 or self.r[0] > 2000 or self.r[1] < -20 or self.r[0] > 2000:
             Planet.listOfObjects.remove(self)
             del self.oval
             del self
             return
         self.canvas.after(Planet.afterT, self.infinite_movement)
-        return
         
     @staticmethod
     def random_color():
