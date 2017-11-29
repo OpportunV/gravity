@@ -74,12 +74,13 @@ class Planet:
     def infinite_movement(self):
         acs = array([0., 0.])
         tempr = self.r.copy()
+        self.r += self.v * Planet.stepT * 0.5
         for obj in Planet.listOfObjects:
             if obj == self:
                 continue
             acs += obj.mass * (obj.r - self.r) / linalg.norm(obj.r - self.r) ** 3
         self.v += acs * Planet.stepT
-        self.r += self.v * Planet.stepT
+        self.r += self.v * Planet.stepT * 0.5
         self.canvas.move(self.oval, self.r[0] - tempr[0], self.r[1] - tempr[1])
         line = self.canvas.create_line(tempr[0], tempr[1], self.r[0], self.r[1], fill=self.color)
         self.canvas.tag_lower(line)
