@@ -26,7 +26,7 @@ class GravityWindow:
         self.canvas.bind('<Button-1>', self.mouse1_click)
         self.canvas.bind('<ButtonRelease-1>', self.mouse1_release)
         
-    def clear_button_click(self, event):
+    def clear_button_click(self, _):
         self.canvas.delete('all')
         for i, obj in enumerate(Planet.listOfObjects):
             obj.r = array([-200. - 10 * i, -200.])
@@ -90,7 +90,7 @@ class Planet:
         
     @staticmethod
     def random_color():
-        return '#{}'.format(''.join([str(hex(random.randint(2, 16)))[2:].upper() for i in range(6)]))
+        return '#{}'.format(''.join([str(hex(random.randint(2, 16)))[2:].upper() for _ in range(6)]))
 
 
 if __name__ == '__main__':
