@@ -23,12 +23,10 @@ class GravityWindow:
 
         self.canvas = Canvas(master, width=width, height=height, bg="#000000")
         self.canvas.grid(row=1, column=0, columnspan=8)
-        self.canvas.focus_set()
         self.canvas.bind('<Button-1>', self.mouse1_click)
         self.canvas.bind('<ButtonRelease-1>', self.mouse1_release)
         
     def clear_button_click(self, event):
-        Planet.afterT = 100
         self.canvas.delete('all')
         for i, obj in enumerate(Planet.listOfObjects):
             obj.r = array([-200. - 10 * i, -200.])
@@ -43,7 +41,6 @@ class GravityWindow:
     
     def initiate_button1_click(self, event):
         self.clear_button_click(event)
-        Planet.afterT = 50
         Planet(self.canvas, -1.43250000e+02 + 400, 0 + 400,
                -1.70327750e-02, -2.61404295e-02, 0.3333333)
         Planet(self.canvas, 1.43250000e+02 + 400, 0 + 400,
