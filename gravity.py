@@ -24,9 +24,9 @@ class GravityWindow:
         self.initiateButton1 = Button(text='Draw me 8!')
         self.initiateButton1.grid(row=0, column=6)
         self.initiateButton1.bind('<Button-1>', self.initiate_button1_click)
-        self.initiateButton1 = Button(text='Challenge')
-        self.initiateButton1.grid(row=0, column=7)
-        self.initiateButton1.bind('<Button-1>', self.challenge_button_click)
+        self.challengeButton1 = Button(text='Challenge')
+        self.challengeButton1.grid(row=0, column=7)
+        self.challengeButton1.bind('<Button-1>', self.challenge_button_click)
 
         self.canvas = Canvas(master, width=width, height=height, bg="#000000")
         self.canvas.grid(row=1, column=0, columnspan=8)
