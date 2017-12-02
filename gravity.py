@@ -4,8 +4,7 @@ from numpy import *
 
 class GravityWindow:
     def __init__(self, master, width=800, height=800):
-        self.width = width
-        self.height = height
+        self.width, self.height = width, height
         self.firstClick = 0, 0
         self.pointer = None
         self.velocityText = None
@@ -18,15 +17,12 @@ class GravityWindow:
         self.massField = Entry(master)
         self.massField.insert(END, '3')
         self.massField.grid(row=0, column=4, stick='W')
-        self.clearAllButton = Button(text='Clear All')
+        self.clearAllButton = Button(text='Clear All', command=self.clear_button_click)
         self.clearAllButton.grid(row=0, column=5)
-        self.clearAllButton.bind('<Button-1>', self.clear_button_click)
-        self.initiateButton1 = Button(text='Draw me 8!')
+        self.initiateButton1 = Button(text='Draw me 8!', command=self.initiate_button1_click)
         self.initiateButton1.grid(row=0, column=6)
-        self.initiateButton1.bind('<Button-1>', self.initiate_button1_click)
-        self.challengeButton1 = Button(text='Challenge')
+        self.challengeButton1 = Button(text='Challenge', command=self.challenge_button_click)
         self.challengeButton1.grid(row=0, column=7)
-        self.challengeButton1.bind('<Button-1>', self.challenge_button_click)
 
         self.canvas = Canvas(master, width=width, height=height, bg="#000000")
         self.canvas.grid(row=1, column=0, columnspan=8)
@@ -34,7 +30,7 @@ class GravityWindow:
         self.canvas.bind('<ButtonRelease-1>', self.mouse1_release)
         self.canvas.bind('<B1-Motion>', self.mouse1_motion)
         
-    def clear_button_click(self, _):
+    def clear_button_click(self):
         self.canvas.delete('all')
         self.massField['state'] = 'normal'
         self.massField.delete(0, END)
@@ -63,8 +59,8 @@ class GravityWindow:
         vx, vy = (event.x - self.firstClick[0]) / 1000, (event.y - self.firstClick[1]) / 1000
         Planet(self.canvas, self.firstClick[0], self.firstClick[1], vx, vy, abs(float(self.massField.get())))
     
-    def initiate_button1_click(self, _):
-        self.clear_button_click(_)
+    def initiate_button1_click(self):
+        self.clear_button_click()
         Planet(self.canvas, -1.43250000e+02 + self.width / 2, 0 + self.height / 2,
                -1.70327750e-02, -2.61404295e-02, 0.3333333)
         Planet(self.canvas, 1.43250000e+02 + self.width / 2, 0 + self.height / 2,
@@ -72,8 +68,8 @@ class GravityWindow:
         Planet(self.canvas, 0 + self.width / 2, 0 + self.height / 2,
                3.40655500e-02, 5.22808591e-02, 0.33333333)
         
-    def challenge_button_click(self, _):
-        self.clear_button_click(_)
+    def challenge_button_click(self):
+        self.clear_button_click()
         x, y = self.width / 2, self.height / 2
         Planet(self.canvas, x, y, 0., 0., 80)
         self.massField.delete(0, END)
