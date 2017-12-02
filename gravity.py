@@ -6,8 +6,7 @@ class GravityWindow:
     def __init__(self, master, width=800, height=800):
         self.width, self.height = width, height
         self.firstClick = 0, 0
-        self.pointer = None
-        self.velocityText = None
+        self.pointer, self.velocityText = None, None
         self.master = master
         master.title('Gravity')
         master.resizable(width=False, height=False)
