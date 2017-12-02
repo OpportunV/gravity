@@ -55,7 +55,7 @@ class GravityWindow:
         self.canvas.delete(self.velocityText)
         vx = (event.x - self.firstClick[0]) / 1000
         vy = (event.y - self.firstClick[1]) / 1000
-        self.velocityText = self.canvas.create_text(self.firstClick[0], self.firstClick[1],fill='white',
+        self.velocityText = self.canvas.create_text(self.firstClick[0], self.firstClick[1], fill='white',
                                                     text='{:1.3}'.format((vx ** 2 + vy ** 2) ** 0.5))
         self.pointer = self.canvas.create_line(self.firstClick[0], self.firstClick[1], event.x, event.y, fill='gray')
         
@@ -91,7 +91,7 @@ class Planet:
     stepT = 10.
     afterT = 100
     
-    def __init__(self, c, x, y, vx, vy, mass, static=False):
+    def __init__(self, c, x, y, vx, vy, mass):
         self.mass = mass
         self.r = array([x, y], dtype=float)
         self.v = array([vx, vy], dtype=float)
