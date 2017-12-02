@@ -67,7 +67,7 @@ class GravityWindow:
 
 
 class Planet:
-    listOfObjects = []
+    listOfObjects = set()
     stepT = 10.
     afterT = 100
     
@@ -82,7 +82,7 @@ class Planet:
                                             self.r[0] + r, self.r[1] + r,
                                             fill=self.color, outline=self.color)
         self.canvas.tag_raise(self.oval)
-        Planet.listOfObjects.append(self)
+        Planet.listOfObjects.add(self)
         self.infinite_movement()
     
     def infinite_movement(self):

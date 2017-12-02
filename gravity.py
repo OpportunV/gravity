@@ -34,7 +34,7 @@ class GravityWindow:
         self.massField['state'] = 'normal'
         self.massField.delete(0, END)
         self.massField.insert(END, 3)
-        for i, obj in enumerate(Planet.listOfObjects):
+        for i, obj in enumerate(Planet.setOfObjects):
             obj.r = array([-200. - 10 * i, -200.])
             
     def mouse1_click(self, event):
@@ -79,7 +79,7 @@ class GravityWindow:
 
 
 class Planet:
-    listOfObjects = []
+    setOfObjects = set()
     stepT = 10.
     afterT = 100
     
@@ -94,14 +94,14 @@ class Planet:
                                             self.r[0] + r, self.r[1] + r,
                                             fill=self.color, outline=self.color)
         self.canvas.tag_raise(self.oval)
-        Planet.listOfObjects.append(self)
+        Planet.setOfObjects.add(self)
         self.infinite_movement()
         
     def infinite_movement(self):
         acs = array([0., 0.])
         tempr = self.r.copy()
         self.r += self.v * Planet.stepT * 0.5
-        for obj in Planet.listOfObjects:
+        for obj in Planet.setOfObjects:
             if obj == self:
                 continue
             acs += obj.mass * (obj.r - self.r) / linalg.norm(obj.r - self.r) ** 3
@@ -111,7 +111,7 @@ class Planet:
         line = self.canvas.create_line(tempr[0], tempr[1], self.r[0], self.r[1], fill=self.color)
         self.canvas.tag_lower(line)
         if self.r[0] < -20 or self.r[0] > 2000 or self.r[1] < -20 or self.r[0] > 2000:
-            Planet.listOfObjects.remove(self)
+            Planet.setOfObjects.remove(self)
             del self.oval
             del self
             return
