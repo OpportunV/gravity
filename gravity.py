@@ -44,8 +44,7 @@ class GravityWindow:
             
     def mouse1_click(self, event):
         self.firstClick = event.x, event.y
-        vx = (event.x - self.firstClick[0]) / 1000
-        vy = (event.y - self.firstClick[1]) / 1000
+        vx, vy = (event.x - self.firstClick[0]) / 1000, (event.y - self.firstClick[1]) / 1000
         self.pointer = self.canvas.create_line(event.x, event.y, event.x + 1, event.y + 1, fill='gray')
         self.velocityText = self.canvas.create_text(self.firstClick[0], self.firstClick[1], fill='white',
                                                     text='{:1.3}'.format((vx ** 2 + vy ** 2) ** 0.5))
@@ -53,8 +52,7 @@ class GravityWindow:
     def mouse1_motion(self, event):
         self.canvas.delete(self.pointer)
         self.canvas.delete(self.velocityText)
-        vx = (event.x - self.firstClick[0]) / 1000
-        vy = (event.y - self.firstClick[1]) / 1000
+        vx, vy = (event.x - self.firstClick[0]) / 1000, (event.y - self.firstClick[1]) / 1000
         self.velocityText = self.canvas.create_text(self.firstClick[0], self.firstClick[1], fill='white',
                                                     text='{:1.3}'.format((vx ** 2 + vy ** 2) ** 0.5))
         self.pointer = self.canvas.create_line(self.firstClick[0], self.firstClick[1], event.x, event.y, fill='gray')
@@ -62,8 +60,7 @@ class GravityWindow:
     def mouse1_release(self, event):
         self.canvas.delete(self.pointer)
         self.canvas.delete(self.velocityText)
-        vx = (event.x - self.firstClick[0]) / 1000
-        vy = (event.y - self.firstClick[1]) / 1000
+        vx, vy = (event.x - self.firstClick[0]) / 1000, (event.y - self.firstClick[1]) / 1000
         Planet(self.canvas, self.firstClick[0], self.firstClick[1], vx, vy, abs(float(self.massField.get())))
     
     def initiate_button1_click(self, _):
