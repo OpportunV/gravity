@@ -115,10 +115,10 @@ class Planet:
     @staticmethod
     def infinite_movement():
         if GravityWindow.pause:
-            Planet.canvas.after_idle(Planet.infinite_movement)
+            Planet.canvas.after(100, Planet.infinite_movement)
             return
         if len(Planet.listOfObjects) == 0:
-            Planet.canvas.after_idle(Planet.infinite_movement)
+            Planet.canvas.after(100, Planet.infinite_movement)
             return
         
         def ode_func(vector, _):
