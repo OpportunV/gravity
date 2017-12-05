@@ -26,6 +26,7 @@ class GravityWindow:
         self.challengeButton1 = Button(text='Challenge', command=self.challenge_button_click)
         self.challengeButton1.grid(row=0, column=7)
         self.pauseButton = Button(text='Pause', width=10, command=self.pause_button_click)
+        self.master.bind('<space>', self.pause_button_click)
         self.pauseButton.grid(row=0, column=2)
         
         self.canvas = Canvas(master, width=width, height=height, bg="#000000")
@@ -34,7 +35,7 @@ class GravityWindow:
         self.canvas.bind('<ButtonRelease-1>', self.mouse1_release)
         self.canvas.bind('<B1-Motion>', self.mouse1_motion)
     
-    def pause_button_click(self):
+    def pause_button_click(self, _):
         if self.pause:
             GravityWindow.pause = False
             self.pauseButton['text'] = 'Pause'
