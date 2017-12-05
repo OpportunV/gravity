@@ -47,7 +47,7 @@ class GravityWindow:
         self.massField['state'] = 'normal'
         self.massField.delete(0, END)
         self.massField.insert(END, 3)
-        for i, obj in enumerate(Planet.setOfObjects):
+        for i, obj in enumerate(Planet.listOfObjects):
             obj.r = array([-200. - 10 * i, -200.])
     
     def mouse1_click(self, event):
@@ -92,13 +92,13 @@ class GravityWindow:
 
 
 class Planet:
-    setOfObjects = []
+    listOfObjects = []
     stepT = 10.
     afterT = 50
     canvas = None
     
     def __init__(self, c, x, y, vx, vy, mass):
-        if len(Planet.setOfObjects) == 0:
+        if len(Planet.listOfObjects) == 0:
             Planet.canvas = c
         self.mass = mass
         self.r = array([x, y], dtype=float)
@@ -109,8 +109,8 @@ class Planet:
                                               self.r[0] + r, self.r[1] + r,
                                               fill=self.color, outline=self.color)
         Planet.canvas.tag_raise(self.oval)
-        Planet.setOfObjects.append(self)
-        if len(Planet.setOfObjects) == 1:
+        Planet.listOfObjects.append(self)
+        if len(Planet.listOfObjects) == 1:
             Planet.infinite_movement()
     
     @staticmethod
@@ -118,18 +118,18 @@ class Planet:
         if GravityWindow.pause:
             Planet.canvas.after(Planet.afterT, Planet.infinite_movement)
             return
-        if len(Planet.setOfObjects) == 0:
+        if len(Planet.listOfObjects) == 0:
             Planet.canvas.after(Planet.afterT, Planet.infinite_movement)
             return
         
         def ode_func(vector, _):
             temp = []
-            n_obj = len(Planet.setOfObjects)
+            n_obj = len(Planet.listOfObjects)
             for k in range(n_obj):
                 temp.append(vector[4 * k + 2])
                 temp.append(vector[4 * k + 3])
                 acs = [0., 0.]
-                for j, item in enumerate(Planet.setOfObjects):
+                for j, item in enumerate(Planet.listOfObjects):
                     if k == j:
                         continue
                     acs += (item.mass * (vector[4 * j:4 * j + 2] - vector[4 * k:4 * k + 2])
@@ -139,20 +139,20 @@ class Planet:
             return array(temp)
         
         initials = []
-        for obj in Planet.setOfObjects:
+        for obj in Planet.listOfObjects:
             initials.append(obj.r)
             initials.append(obj.v)
         initials = vstack(initials).ravel()
         solution = odeint(ode_func, initials, [0, Planet.stepT])
-        for i, obj in enumerate(Planet.setOfObjects):
+        for i, obj in enumerate(Planet.listOfObjects):
             obj.r = solution[-1, 4 * i:4 * i + 2]
             obj.v = solution[-1, 4 * i + 2:4 * i + 4]
             Planet.canvas.move(obj.oval, obj.r[0] - initials[4 * i], obj.r[1] - initials[4 * i + 1])
             line = Planet.canvas.create_line(initials[4 * i], initials[4 * i + 1], obj.r[0], obj.r[1], fill=obj.color)
             Planet.canvas.tag_lower(line)
-        for obj in Planet.setOfObjects:
+        for obj in Planet.listOfObjects:
             if obj.r[0] < -20 or obj.r[0] > 2000 or obj.r[1] < -20 or obj.r[0] > 2000:
-                Planet.setOfObjects.remove(obj)
+                Planet.listOfObjects.remove(obj)
                 del obj.oval
                 del obj
         Planet.canvas.after(Planet.afterT, Planet.infinite_movement)
