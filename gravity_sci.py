@@ -126,17 +126,15 @@ class Planet:
             temp = []
             n_obj = len(Planet.listOfObjects)
             for k in range(n_obj):
-                temp.append(vector[4 * k + 2])
-                temp.append(vector[4 * k + 3])
+                temp.append(vector[4 * k + 2:4 * k + 4])
                 acs = [0., 0.]
                 for j, item in enumerate(Planet.listOfObjects):
                     if k == j:
                         continue
                     acs += (item.mass * (vector[4 * j:4 * j + 2] - vector[4 * k:4 * k + 2])
                             / linalg.norm(vector[4 * j:4 * j + 2] - vector[4 * k:4 * k + 2]) ** 3)
-                temp.append(acs[0])
-                temp.append(acs[1])
-            return array(temp)
+                temp.append(acs)
+            return vstack(temp).ravel()
         
         initials = []
         for obj in Planet.listOfObjects:
