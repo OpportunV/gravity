@@ -1,5 +1,4 @@
 from tkinter import *
-import time
 from numpy import *
 from scipy.integrate import odeint
 
@@ -122,7 +121,6 @@ class Planet:
         if len(Planet.setOfObjects) == 0:
             Planet.canvas.after(Planet.afterT, Planet.infinite_movement)
             return
-        t1 = time.time()
         
         def ode_func(vector, t):
             temp = []
@@ -158,7 +156,6 @@ class Planet:
                 del obj.oval
                 del obj
         Planet.canvas.after(Planet.afterT, Planet.infinite_movement)
-        print(time.time() - t1)
     
     @staticmethod
     def random_color():
