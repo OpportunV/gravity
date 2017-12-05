@@ -6,7 +6,7 @@ from scipy.integrate import odeint
 class GravityWindow:
     pause = False
     
-    def __init__(self, master, width=800, height=800):
+    def __init__(self, master, width=1200, height=800):
         self.width, self.height = width, height
         self.firstClick = 0, 0
         self.pointer, self.velocityText = None, None
@@ -161,7 +161,6 @@ class Planet:
 
 
 if __name__ == '__main__':
-    WIDTH, HEIGHT = 1200, 800
     root = Tk()
-    window = GravityWindow(root, WIDTH, HEIGHT)
+    window = GravityWindow(root)
     root.mainloop()
