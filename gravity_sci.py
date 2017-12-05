@@ -116,10 +116,10 @@ class Planet:
     @staticmethod
     def infinite_movement():
         if GravityWindow.pause:
-            Planet.canvas.after(Planet.afterT, Planet.infinite_movement)
+            Planet.canvas.after_idle(Planet.infinite_movement)
             return
         if len(Planet.listOfObjects) == 0:
-            Planet.canvas.after(Planet.afterT, Planet.infinite_movement)
+            Planet.canvas.after_idle(Planet.infinite_movement)
             return
         
         def ode_func(vector, _):
@@ -153,7 +153,7 @@ class Planet:
                 Planet.listOfObjects.remove(obj)
                 del obj.oval
                 del obj
-        Planet.canvas.after(Planet.afterT, Planet.infinite_movement)
+        Planet.canvas.after_idle(Planet.infinite_movement)
     
     @staticmethod
     def random_color():
