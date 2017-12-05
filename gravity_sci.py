@@ -98,7 +98,7 @@ class Planet:
     canvas = None
     
     def __init__(self, c, x, y, vx, vy, mass):
-        if len(Planet.listOfObjects) == 0:
+        if Planet.canvas is None:
             Planet.canvas = c
         self.mass = mass
         self.r = array([x, y], dtype=float)
