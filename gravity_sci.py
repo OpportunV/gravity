@@ -106,8 +106,8 @@ class Planet:
         self.color = self.random_color()
         r = max(min(self.mass, 10), 3)
         self.oval = Planet.canvas.create_oval(self.r[0] - r, self.r[1] - r,
-                                            self.r[0] + r, self.r[1] + r,
-                                            fill=self.color, outline=self.color)
+                                              self.r[0] + r, self.r[1] + r,
+                                              fill=self.color, outline=self.color)
         Planet.canvas.tag_raise(self.oval)
         Planet.setOfObjects.append(self)
         if len(Planet.setOfObjects) == 1:
@@ -122,18 +122,18 @@ class Planet:
             Planet.canvas.after(Planet.afterT, Planet.infinite_movement)
             return
         
-        def ode_func(vector, t):
+        def ode_func(vector, _):
             temp = []
             n_obj = len(Planet.setOfObjects)
-            for i in range(n_obj):
-                temp.append(vector[4 * i + 2])
-                temp.append(vector[4 * i + 3])
+            for k in range(n_obj):
+                temp.append(vector[4 * k + 2])
+                temp.append(vector[4 * k + 3])
                 acs = [0., 0.]
-                for j, obj in enumerate(Planet.setOfObjects):
-                    if i == j:
+                for j, item in enumerate(Planet.setOfObjects):
+                    if k == j:
                         continue
-                    acs += (obj.mass * (vector[4 * j:4 * j + 2] - vector[4 * i:4 * i + 2])
-                            / linalg.norm(vector[4 * j:4 * j + 2] - vector[4 * i:4 * i + 2]) ** 3)
+                    acs += (item.mass * (vector[4 * j:4 * j + 2] - vector[4 * k:4 * k + 2])
+                            / linalg.norm(vector[4 * j:4 * j + 2] - vector[4 * k:4 * k + 2]) ** 3)
                 temp.append(acs[0])
                 temp.append(acs[1])
             return array(temp)
@@ -143,7 +143,6 @@ class Planet:
             initials.append(obj.r)
             initials.append(obj.v)
         initials = vstack(initials).ravel()
-        
         solution = odeint(ode_func, initials, [0, Planet.stepT])
         for i, obj in enumerate(Planet.setOfObjects):
             obj.r = solution[-1, 4 * i:4 * i + 2]
@@ -151,6 +150,7 @@ class Planet:
             Planet.canvas.move(obj.oval, obj.r[0] - initials[4 * i], obj.r[1] - initials[4 * i + 1])
             line = Planet.canvas.create_line(initials[4 * i], initials[4 * i + 1], obj.r[0], obj.r[1], fill=obj.color)
             Planet.canvas.tag_lower(line)
+        for obj in Planet.setOfObjects:
             if obj.r[0] < -20 or obj.r[0] > 2000 or obj.r[1] < -20 or obj.r[0] > 2000:
                 Planet.setOfObjects.remove(obj)
                 del obj.oval
