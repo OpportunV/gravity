@@ -94,7 +94,6 @@ class GravityWindow:
 class Planet:
     listOfObjects = []
     stepT = 10.
-    afterT = 80
     canvas = None
     
     def __init__(self, c, x, y, vx, vy, mass):
