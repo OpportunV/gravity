@@ -3,6 +3,8 @@ from numpy import *
 
 
 class GravityWindow:
+    pause = False
+    
     def __init__(self, master, width=800, height=800):
         self.width, self.height = width, height
         self.firstClick = 0, 0
@@ -22,6 +24,8 @@ class GravityWindow:
         self.initiateButton1.grid(row=0, column=6)
         self.challengeButton1 = Button(text='Challenge', command=self.challenge_button_click)
         self.challengeButton1.grid(row=0, column=7)
+        self.pauseButton = Button(text='Pause', width=10, command=self.pause_button_click)
+        self.pauseButton.grid(row=0, column=2)
 
         self.canvas = Canvas(master, width=width, height=height, bg="#000000")
         self.canvas.grid(row=1, column=0, columnspan=8)
@@ -29,6 +33,14 @@ class GravityWindow:
         self.canvas.bind('<ButtonRelease-1>', self.mouse1_release)
         self.canvas.bind('<B1-Motion>', self.mouse1_motion)
         
+    def pause_button_click(self):
+        if self.pause:
+            GravityWindow.pause = False
+            self.pauseButton['text'] = 'Pause'
+        else:
+            GravityWindow.pause = True
+            self.pauseButton['text'] = 'Unpause'
+    
     def clear_button_click(self):
         self.canvas.delete('all')
         self.massField['state'] = 'normal'
@@ -98,6 +110,9 @@ class Planet:
         self.infinite_movement()
         
     def infinite_movement(self):
+        if GravityWindow.pause:
+            self.canvas.after(Planet.afterT, self.infinite_movement)
+            return
         acs = array([0., 0.])
         tempr = self.r.copy()
         self.r += self.v * Planet.stepT * 0.5
