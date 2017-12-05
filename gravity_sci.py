@@ -18,6 +18,7 @@ class GravityWindow:
         self.massLabel.grid(row=0, column=3, stick='E')
         self.massField = Entry(master)
         self.massField.insert(END, '3')
+        self.massField['state'] = 'disabled'
         self.massField.grid(row=0, column=4, stick='W')
         self.clearAllButton = Button(text='Clear All', command=self.clear_button_click)
         self.clearAllButton.grid(row=0, column=5)
@@ -35,13 +36,15 @@ class GravityWindow:
         self.canvas.bind('<ButtonRelease-1>', self.mouse1_release)
         self.canvas.bind('<B1-Motion>', self.mouse1_motion)
     
-    def pause_button_click(self, _):
+    def pause_button_click(self, _=None):
         if self.pause:
             GravityWindow.pause = False
             self.pauseButton['text'] = 'Pause'
+            self.massField['state'] = 'disabled'
         else:
             GravityWindow.pause = True
             self.pauseButton['text'] = 'Unpause'
+            self.massField['state'] = 'normal'
     
     def clear_button_click(self):
         self.canvas.delete('all')
