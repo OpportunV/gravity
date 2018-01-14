@@ -50,9 +50,9 @@ class GravityWindow:
     
     def clear_button_click(self):
         self.canvas.delete('all')
-        self.massField['state'] = 'disabled'
         self.massField.delete(0, END)
         self.massField.insert(END, 3)
+        self.massField['state'] = 'disabled'
         for i, obj in enumerate(Planet.listOfObjects):
             obj.r = array([-200. - 10 * i, -200.])
     
@@ -99,6 +99,7 @@ class GravityWindow:
         self.clear_button_click()
         x, y = self.width / 2, self.height / 2
         Planet(self.canvas, x, y, 0., 0., 80)
+        self.massField['state'] = 'normal'
         self.massField.delete(0, END)
         self.massField.insert(END, 0)
         self.massField['state'] = 'disabled'
