@@ -15,20 +15,22 @@ class GravityWindow:
         master.resizable(width=False, height=False)
         
         self.massLabel = Label(text='Current Mass')
-        self.massLabel.grid(row=0, column=3, stick='E')
+        self.massLabel.grid(row=0, column=2, stick='E')
         self.massField = Entry(master)
         self.massField.insert(END, '3')
         self.massField['state'] = 'disabled'
-        self.massField.grid(row=0, column=4, stick='W')
+        self.massField.grid(row=0, column=3, stick='W')
         self.clearAllButton = Button(text='Clear All', command=self.clear_button_click)
-        self.clearAllButton.grid(row=0, column=5)
+        self.clearAllButton.grid(row=0, column=4)
         self.initiateButton1 = Button(text='Draw me 8!', command=self.initiate_button1_click)
-        self.initiateButton1.grid(row=0, column=6)
+        self.initiateButton1.grid(row=0, column=5)
+        self.initiateButton2 = Button(text='P.Task', command=self.initiate_button2_click)
+        self.initiateButton2.grid(row=0, column=6)
         self.challengeButton1 = Button(text='Challenge', command=self.challenge_button_click)
         self.challengeButton1.grid(row=0, column=7)
         self.pauseButton = Button(text='Pause', width=10, command=self.pause_button_click)
         self.master.bind('<space>', self.pause_button_click)
-        self.pauseButton.grid(row=0, column=2)
+        self.pauseButton.grid(row=0, column=1)
         
         self.canvas = Canvas(master, width=width, height=height, bg="#000000")
         self.canvas.grid(row=1, column=0, columnspan=8)
@@ -83,6 +85,15 @@ class GravityWindow:
                -1.70327750e-02, -2.61404295e-02, 0.3333333)
         Planet(self.canvas, 0 + self.width / 2, 0 + self.height / 2,
                3.40655500e-02, 5.22808591e-02, 0.33333333)
+        
+    def initiate_button2_click(self):
+        self.clear_button_click()
+        Planet(self.canvas, -200 + self.width / 2, -150 + self.height / 2,
+               0, 0, 5)
+        Planet(self.canvas, 200 + self.width / 2, -150 + self.height / 2,
+               0, 0, 3)
+        Planet(self.canvas, -200 + self.width / 2, 150 + self.height / 2,
+               0, 0, 4)
     
     def challenge_button_click(self):
         self.clear_button_click()
