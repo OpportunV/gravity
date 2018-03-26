@@ -29,8 +29,8 @@ class GravityWindow:
 
         self.canvas = Canvas(master, width=width, height=height, bg="#000000")
         self.canvas.grid(row=1, column=0, columnspan=8)
-        self.canvas.bind('<Button-1>', self.mouse1_click)
-        self.canvas.bind('<ButtonRelease-1>', self.mouse1_release)
+        self.canvas.bind('<Button-parse>', self.mouse1_click)
+        self.canvas.bind('<ButtonRelease-parse>', self.mouse1_release)
         self.canvas.bind('<B1-Motion>', self.mouse1_motion)
         
     def pause_button_click(self):
